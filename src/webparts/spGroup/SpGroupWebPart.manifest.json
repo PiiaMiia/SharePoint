@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "dbc9a438-538d-4b0a-9a77-e05ecf9fcd89",
+  "alias": "SpGroupWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "dbc9a438-538d-4b0a-9a77-e05ecf9fcd89",
+    "group": { "default": "Under Development" },
+    "title": { "default": "SpGroup" },
+    "description": { "default": "SpGroup description" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "HelloWorld",
+      "test": "Multi-line text field",
+      "test1": true,
+      "test2": "2",
+      "test3": true,
+      "listName": ""
+    }
+  }]
+}

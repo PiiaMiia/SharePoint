@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "spgroup-client-side-solution",
+    "id": "0203da17-6f2c-4e10-9a9e-d108af3d554b",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/spgroup.sppkg"
+  }
+}

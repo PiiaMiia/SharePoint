@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "entry": "./lib/webparts/spGroup/SpGroupWebPart.js",
+      "manifest": "./src/webparts/spGroup/SpGroupWebPart.manifest.json",
+      "outputPath": "./dist/sp-group.bundle.js"
+    }
+  ],
+  "externals": {},
+  "localizedResources": {
+    "spGroupStrings": "webparts/spGroup/loc/{locale}.js"
+  }
+}

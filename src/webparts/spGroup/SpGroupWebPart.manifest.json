@@ -19,7 +19,8 @@
       "test1": true,
       "test2": "2",
       "test3": true,
-      "listName": ""
+      "listName": "",
+      "itemName": ""
     }
   }]
 }

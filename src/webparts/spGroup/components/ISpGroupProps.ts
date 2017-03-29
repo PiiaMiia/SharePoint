@@ -5,4 +5,5 @@ export interface ISpGroupProps {
     test2: string;
     test3: boolean;
     listName: string;
+    itemName: string;
 }

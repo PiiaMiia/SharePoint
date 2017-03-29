@@ -4,5 +4,6 @@ export interface ISpGroupWebPartProps {
     test1: boolean;
     test2: string;
     test3: boolean;
-    listName: string; 
+    listName: string;
+    itemName: string;
 }

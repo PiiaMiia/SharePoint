@@ -3,6 +3,8 @@ import styles from './SpGroup.module.scss';
 import { ISpGroupProps } from './ISpGroupProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
+declare var pageContext;
+
 export default class SpGroup extends React.Component<ISpGroupProps, void> {
   public render(): React.ReactElement<ISpGroupProps> {
     return (
@@ -16,6 +18,8 @@ export default class SpGroup extends React.Component<ISpGroupProps, void> {
               <p className="ms-font-l ms-fontColor-white">{escape(this.props.test)}</p>
               <p className="ms-font-l ms-fontColor-white">{escape(this.props.test2)}</p>
               <p className='ms-font-l ms-fontColor-white'>{this.props.listName}</p>
+              <p className='ms-font-l ms-fontColor-white'>{this.props.itemName}</p>
+              <p className="ms-font-l ms-fontColor-white">Loading from {escape(this.context.pageContext.web.title)}</p>
               <a href="https://aka.ms/spfx" className={styles.button}>
                 <span className={styles.label}>Learn more</span>
               </a>

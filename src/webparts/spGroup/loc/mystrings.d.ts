@@ -3,6 +3,8 @@ declare interface ISpGroupStrings {
   BasicGroupName: string;
   DescriptionFieldLabel: string;
   ListNameFieldLabel: string;
+  ItemNameFieldLabel: string;
+
 }
 
 declare module 'spGroupStrings' {

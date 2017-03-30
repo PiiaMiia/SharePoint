@@ -14,7 +14,8 @@
     "description": { "default": "SpGroup description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "HelloWorld",
+      "group": "Add a group name",
+      "user": "",
       "test": "Multi-line text field",
       "test1": true,
       "test2": "2",

@@ -1,9 +1,9 @@
+import { SPHttpClient } from '@microsoft/sp-http';
+
 export interface ISpGroupWebPartProps {
-    description: string;
-    test: string;
-    test1: boolean;
-    test2: string;
-    test3: boolean;
-    listName: string;
-    itemName: string;
+    spHttpClient: SPHttpClient;
+    siteUrl: string;
+    group: string;
+    userLoginName: string;
+    userId: string;
 }

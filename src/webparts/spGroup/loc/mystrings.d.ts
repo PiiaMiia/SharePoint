@@ -2,9 +2,6 @@ declare interface ISpGroupStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
-  ListNameFieldLabel: string;
-  ItemNameFieldLabel: string;
-
 }
 
 declare module 'spGroupStrings' {

@@ -4,8 +4,6 @@ import injectTapEventPlugin  = require('react-tap-event-plugin');
 injectTapEventPlugin();
 import styles from './SpGroup.module.scss';
 import { ISpGroupProps } from './ISpGroupProps';
-import { ISpGroupState } from './ISpGroupState';
-import { IUserData } from './IUserData';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { IWebPartContext } from '@microsoft/sp-webpart-base';
 import { HttpClient, SPHttpClient, SPHttpClientConfiguration, SPHttpClientResponse, ODataVersion, ISPHttpClientConfiguration, ISPHttpClientOptions, ISPHttpClientBatchOptions, SPHttpClientBatch, ISPHttpClientBatchCreationOptions } from '@microsoft/sp-http';
@@ -19,11 +17,24 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
-export default class SpGroup extends React.Component<ISpGroupProps, ISpGroupState> {
+export interface INewGroup {
+  groupName: string;
+}
+
+export default class SpGroup extends React.Component<ISpGroupProps, INewGroup> {
+
+  constructor(props) {
+    super(props);
+
+    this.state = { 
+      groupName: ''
+    };
+  }
+
+  protected handleGroupNameChange = (event) : void => this.setState({ groupName : event.target.value } as INewGroup);
+
 
   public render(): React.ReactElement<ISpGroupProps> {
-
-    const disabled: string = this.listNotConfigured(this.props) ? styles.disabled: '';
     
     return (
       <div className={styles.spGroup}>
@@ -35,8 +46,8 @@ export default class SpGroup extends React.Component<ISpGroupProps, ISpGroupStat
               <p className="ms-font-l ms-fontColor-white">You are logged in as {escape(this.props.userLoginName)}.</p>
               <p className="ms-font-l ms-fontColor-white">Please create a new group.</p>
               <p className="ms-font-l ms-fontColor-white">{escape(this.props.createGroupEndpointUrl)}</p>
-              <input id="groupName" type="string" placeholder="Group name" value={this.props.groupName}/>
-              <p className="ms-font-l ms-fontColor-white">Do you want to create a group named {escape(this.props.groupName)}?</p>
+              <input id="groupName" type="string" placeholder="Group name" value={this.state.groupName} onChange={this.handleGroupNameChange}/>
+              <p className="ms-font-l ms-fontColor-white">Do you want to create a group named {escape(this.state.groupName)}?</p>
               <div className={`ms-Grid-row ms-bgColor-themeDark ms-fontColor-white ${styles.row}`}>
                 <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
                   <a href="#" className={`${styles.button}`} onClick={() => this.createItem()}>
@@ -60,7 +71,7 @@ export default class SpGroup extends React.Component<ISpGroupProps, ISpGroupStat
 
 
 //GET current web info
-    this.props.httpClient.get(this.props.createGroupEndpointUrl + '&groupName=' + this.props.groupName, SPHttpClient.configurations.v1).then((response: SPHttpClientResponse) => {
+    this.props.httpClient.get(this.props.createGroupEndpointUrl + '&groupName=' + this.state.groupName, SPHttpClient.configurations.v1).then((response: SPHttpClientResponse) => {
 
       response.json().then((web: IODataWeb) => {
 
@@ -95,23 +106,6 @@ export default class SpGroup extends React.Component<ISpGroupProps, ISpGroupStat
           console.log(responseJSON);
         });
       }); */
-  }
-
-  // READS GROUPS
-
-  private readItems(): void {
-    this.setState({
-      status: 'Loading all items...',
-      items: []
-    });
-
-  }
-
-
-  private listNotConfigured(props: ISpGroupProps): boolean {
-    return props.groupName === undefined ||
-      props.groupName === null ||
-      props.groupName.length === 0;
   }
 
 }

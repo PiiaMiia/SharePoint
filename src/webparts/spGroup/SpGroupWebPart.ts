@@ -30,7 +30,6 @@ export default class SpGroupWebPart extends BaseClientSideWebPart<ISpGroupWebPar
         siteUrl: this.context.pageContext.web.absoluteUrl,
         userLoginName: this.context.pageContext.user.loginName,
         userId: this.context.pageContext.user.displayName,
-        groupName: this.properties.groupName,
         createGroupEndpointUrl: this.properties.createGroupEndpointUrl
       }
     );

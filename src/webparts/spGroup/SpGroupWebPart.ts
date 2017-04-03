@@ -26,10 +26,12 @@ export default class SpGroupWebPart extends BaseClientSideWebPart<ISpGroupWebPar
       SpGroup,
       {
         spHttpClient: this.context.spHttpClient,
+        httpClient: this.context.httpClient,
         siteUrl: this.context.pageContext.web.absoluteUrl,
-        group: this.properties.group,
         userLoginName: this.context.pageContext.user.loginName,
-        userId: this.context.pageContext.user.displayName
+        userId: this.context.pageContext.user.displayName,
+        groupName: this.properties.groupName,
+        createGroupEndpointUrl: this.properties.createGroupEndpointUrl
       }
     );
 
@@ -38,27 +40,5 @@ export default class SpGroupWebPart extends BaseClientSideWebPart<ISpGroupWebPar
 
   protected get dataVersion(): Version {
     return Version.parse('1.0');
-  }
-
-  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    return {
-      pages: [
-        {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
-          groups: [
-            {
-              groupName: strings.BasicGroupName,
-              groupFields: [
-              PropertyPaneTextField('group', {
-                label: 'Group name'
-              }),
-            ]
-          }
-        ]
-      }
-    ]
-    };
   }
 }

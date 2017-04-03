@@ -14,14 +14,10 @@
     "description": { "default": "SpGroup description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "group": "Add a group name",
+      "groupName": "",
       "user": "",
-      "test": "Multi-line text field",
-      "test1": true,
-      "test2": "2",
-      "test3": true,
-      "listName": "",
-      "itemName": ""
+      "createGroupEndpointUrl": "https://uptimegroups.azurewebsites.net/api/powershell-group?code=NGpWHLu1872M6QCGmx5824vDukFZXdKqijwxKnkO1LjLK9Iaydg1OA=="
+
     }
   }]
 }

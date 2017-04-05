@@ -15,9 +15,7 @@
     "officeFabricIconFontName": "Page",
     "properties": {
       "groupName": "",
-      "user": "",
       "createGroupEndpointUrl": "https://uptimegroups.azurewebsites.net/api/powershell-group?code=NGpWHLu1872M6QCGmx5824vDukFZXdKqijwxKnkO1LjLK9Iaydg1OA=="
-
     }
   }]
 }

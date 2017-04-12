@@ -1,56 +1,87 @@
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { css, Button, } from 'office-ui-fabric-react';
 import styles from './SpGroup.module.scss';
-import { DropdownMenu } from './Dropdown';
 import { ISpGroupProps } from './ISpGroupProps';
-import injectTapEventPlugin  = require('react-tap-event-plugin');
-injectTapEventPlugin();
+import { ISpGroupState } from './ISpGroupState';
+import { IListItem } from './IListItem';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { IWebPartContext } from '@microsoft/sp-webpart-base';
-import { HttpClient, SPHttpClient, SPHttpClientConfiguration, SPHttpClientResponse, ODataVersion, ISPHttpClientConfiguration, ISPHttpClientOptions, ISPHttpClientBatchOptions, SPHttpClientBatch, ISPHttpClientBatchCreationOptions } from '@microsoft/sp-http';
-import { IODataUser, IODataWeb } from '@microsoft/sp-odata-types';
+import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
+import { IODataWeb } from '@microsoft/sp-odata-types';
 
-export interface INewGroup {
-  groupName: string;
-}
+export default class SpGroup extends React.Component<ISpGroupProps, ISpGroupState> {
+  private listItemEntityTypeName: string = undefined;
 
-export default class SpGroup extends React.Component<ISpGroupProps, INewGroup> {
-
-  constructor(props) {
+  constructor(props: ISpGroupProps, state: ISpGroupState) {
     super(props);
-
-    this.state = { 
-      groupName: '',
+    this.state = {
+      status: '',
+      listItems: [],
+      client: 'client',
+      groupName: ''
     };
   }
 
-  protected handleGroupNameChange = (event) : void => this.setState({ groupName : event.target.value } as INewGroup);
+  public componentWillReceiveProps(nextProps: ISpGroupProps): void {
+    this.listItemEntityTypeName = undefined;
+    this.setState({
+      status: '',
+      listItems: [],
+      client: 'client',
+      groupName: ''
+    });
+  }
+
+  protected handleGroupNameChange = (event) : void => this.setState({ groupName : event.target.value } as ISpGroupState);
+  protected handleClientChange = (event) : void => this.setState({ client : event.target.value } as ISpGroupState);
+  protected handleClientSubmit = (event) : void => alert('You chose client ' + this.state.client);
+
 
   public render(): React.ReactElement<ISpGroupProps> {
-    
+
+    const items: JSX.Element[] = this.state.listItems.map((item: IListItem, i: number): JSX.Element => {
+      return (
+        <option value ={item.Title}>{item.Title}</option>
+      );
+    });
+
+    const disabled: string = this.listNotConfigured(this.props) ? styles.disabled : '';
+
     return (
       <div className={styles.spGroup}>
         <div className={styles.container}>
-          <div className={`ms-Grid-row ms-bgColor-themeDark ms-fontColor-white ${styles.row}`}>
+          <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
             <div className="ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1">
               <span className="ms-font-xl ms-fontColor-white">Testing SharePoint here</span>
               <p className="ms-font-l ms-fontColor-white">Hello, {escape(this.props.userId)}!</p>
               <p className="ms-font-l ms-fontColor-white">You are logged in as {escape(this.props.userLoginName)}.</p>
-              <p className="ms-font-l ms-fontColor-white">Please create a new group.</p>
-              <p className="ms-font-l ms-fontColor-white">{escape(this.props.siteUrl)}</p>
-              <input id="groupName" type="string" placeholder="Group name" value={this.state.groupName} onChange={this.handleGroupNameChange}/>
-              <p className="ms-font-l ms-fontColor-white">Do you want to create a group named {escape(this.state.groupName)}?</p>
-              <div className={`ms-Grid-row ms-bgColor-themeDark ms-fontColor-white ${styles.row}`}>
+              <p className="ms-font-l ms-fontColor-white">You are at site {escape(this.props.siteUrl)}.</p>
+              <p className="ms-font-l ms-fontColor-white">Here you can create a new group to this site.</p>
+              <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
                 <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
-                  <a href="#" className={`${styles.button}`} onClick={() => this.createItem()}>
-                    <span className={styles.label}>Create groups</span>
+                  <a href="#" className={`${styles.button}`} onClick={() => this.readItems()}>
+                    <span className={styles.label}>Start creating a new group</span>
                   </a>
                 </div>
                 <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
-                <a href="#" className={`${styles.button}`} onClick={() => this.readList()}>
-                  <span className={styles.label}>See lists</span>
-                </a>
+                    <select onLoad={() => this.readItems()} value={this.state.client} onChange={this.handleClientChange}>
+                      {items}
+                    </select>
+                    <label>{this.state.status}</label>
+                    <input id="groupName" type="string" placeholder="Group name" value={this.state.groupName} onChange={this.handleGroupNameChange}/>
+                </div>
               </div>
+              <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
+                  
+              </div>
+              <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
+                <p className="ms-font-l ms-fontColor-white">
+                Do you want to create a group named {escape(this.state.client)}-{escape(this.state.groupName)}?</p>
+              </div>
+              <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
+                <a href="#" className={`${styles.button}`} onClick={() => this.createItem()}>
+                  <span className={styles.label}><b>Create</b></span>
+                </a>
               </div>
             </div>
           </div>
@@ -59,35 +90,69 @@ export default class SpGroup extends React.Component<ISpGroupProps, INewGroup> {
     );
   }
 
-  // REST API GET CLIENTS LIST
-  private readList(): void {
+  private validateForm() {
+    var x = document.forms["myForm"]["fname"].value;
+    if (x == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+}
 
-    const spHttpClient: SPHttpClient = this.props.spHttpClient;
-    const currentWebUrl: string = this.props.siteUrl;
-    
-    this.props.spHttpClient.get(currentWebUrl + `/_api/web/lists/GetByTitle('Clients')/`,
-    SPHttpClient.configurations.v1)
-      .then((response: SPHttpClientResponse) => {
-        // Access properties of the response object. 
-        console.log(`Status code: ${response.status}`);
-        console.log(`Status text: ${response.statusText}`);
-        //response.json() returns a promise so you get access to the json in the resolve callback.
-        response.json().then((responseJSON: JSON) => {
-          console.log(response);
+  // READS ALL ITEMS FROM LIST AND DISPLAYS TO DROPDOWN
+  private readItems(): void {
+    this.setState({
+      status: '',
+      listItems: [],
+      client: '',
+      groupName: ''
+    });
+    this.props.spHttpClient.get(`${this.props.siteUrl}/_api/web/lists/getbytitle('Clients')/items?$select=Title`,
+      SPHttpClient.configurations.v1,
+      {
+        headers: {
+          'Accept': 'application/json;odata=nometadata',
+          'odata-version': ''
+        }
+      })
+      .then((response: SPHttpClientResponse): Promise<{ value: IListItem[] }> => {
+        return response.json();
+      })
+      .then((response: { value: IListItem[] }): void => {
+        this.setState({
+          status: ``,
+          listItems: response.value,
+          client: '',
+          groupName: ''
+        });
+      }, (error: any): void => {
+        this.setState({
+          status: 'Loading all items failed with error: ' + error,
+          listItems: [],
+          client: '',
+          groupName: ''
         });
       });
+  }
+
+  private listNotConfigured(props: ISpGroupProps): boolean {
+    return props.listName === undefined ||
+      props.listName === null ||
+      props.listName.length === 0;
   }
 
   // CREATES A GROUP
   private createItem(): void {
 
-    // GET AZURE FUNCTION
-    this.props.httpClient.get(this.props.createGroupEndpointUrl + '&groupName=' + this.state.groupName,
+    // TRIGGERS AZURE FUNCTION
+    this.props.httpClient.get(this.props.createGroupEndpointUrl + '&groupName=' + this.state.client + '-' + this.state.groupName + '&mail=' + this.state.client + '-' + this.state.groupName + '@' + this.props.createGroupEndpointUrl,
     SPHttpClient.configurations.v1)
-    .then((response: SPHttpClientResponse) => {
-      response.json().then((web: IODataWeb) => {
-        console.log(web);
-      }).catch(error => console.log(error));
-    });
+      .then((response: SPHttpClientResponse) => {
+        response.json()
+        .then((web: IODataWeb) => { 
+          console.log(web); 
+          alert("You have created a new group named "+ this.state.client + "-" + this.state.groupName);
+        })
+      })
+      .catch(error => console.log(error));
   }
 }

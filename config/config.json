@@ -6,7 +6,10 @@
       "outputPath": "./dist/sp-group.bundle.js"
     }
   ],
-  "externals": {},
+  "externals": {
+    
+  },
+  
   "localizedResources": {
     "spGroupStrings": "webparts/spGroup/loc/{locale}.js"
   }

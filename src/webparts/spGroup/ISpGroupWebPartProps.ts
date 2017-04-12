@@ -7,4 +7,5 @@ export interface ISpGroupWebPartProps {
     userLoginName: string;
     userId: string;
     createGroupEndpointUrl: string;
+    listName: string;
 }

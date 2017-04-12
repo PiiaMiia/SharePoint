@@ -6,5 +6,6 @@ export interface ISpGroupProps {
     siteUrl: string;
     userLoginName: string;
     userId: string;
-    createGroupEndpointUrl: string;zz
+    createGroupEndpointUrl: string;
+    listName: string;
 }

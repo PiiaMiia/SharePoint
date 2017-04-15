@@ -4,8 +4,5 @@ export interface ISpGroupWebPartProps {
     spHttpClient: SPHttpClient;
     httpClient: HttpClient;
     siteUrl: string;
-    userLoginName: string;
-    userId: string;
     createGroupEndpointUrl: string;
-    listName: string;
 }

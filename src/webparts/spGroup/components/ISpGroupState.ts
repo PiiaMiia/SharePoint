@@ -1,8 +1,7 @@
-import { IListItem } from './IListItem';
+import { IListItem } from './Main/Main';
 
 export interface ISpGroupState {
-  status: string;
-  listItems: IListItem[];
-  client: string;
-  groupName: string;
+    listItems: IListItem[];
+    client: string;
+    step: number;
 }

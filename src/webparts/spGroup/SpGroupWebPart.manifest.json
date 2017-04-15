@@ -1,20 +1,20 @@
 {
   "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
 
-  "id": "dbc9a438-538d-4b0a-9a77-e05ecf9fcd89",
+  "id": "ea40f1f3-1ec8-4d9f-914d-f549bce09eb5",
   "alias": "SpGroupWebPart",
   "componentType": "WebPart",
   "version": "0.0.1",
   "manifestVersion": 2,
 
   "preconfiguredEntries": [{
-    "groupId": "dbc9a438-538d-4b0a-9a77-e05ecf9fcd89",
-    "group": { "default": "Default" },
+    "groupId": "ea40f1f3-1ec8-4d9f-914d-f549bce09eb5",
+    "group": { "default": "Under Development" },
     "title": { "default": "SpGroup" },
     "description": { "default": "SpGroup description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "groupName": "name your group",
+      "description": "SpGroup",
       "createGroupEndpointUrl": "https://uptimegroups.azurewebsites.net/api/powershell-group?code=NGpWHLu1872M6QCGmx5824vDukFZXdKqijwxKnkO1LjLK9Iaydg1OA=="
     }
   }]

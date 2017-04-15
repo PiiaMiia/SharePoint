@@ -1,6 +1,6 @@
 {
   "workingDir": "./temp/deploy/",
   "account": "<!-- STORAGE ACCOUNT NAME -->",
-  "container": "spgroup",
+  "container": "sp-group",
   "accessKey": "<!-- ACCESS KEY -->"
 }

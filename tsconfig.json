@@ -4,7 +4,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "jsx": "react",
-    "allowJs": true,
+    "declaration": true,
     "sourceMap": true,
     "types": [
       "es6-promise",

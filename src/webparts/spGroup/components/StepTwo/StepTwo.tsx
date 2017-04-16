@@ -12,16 +12,11 @@ export default class StepTwo extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        this.state = {
-            groupName: ''
-        }
     }
 
     protected handleGroupNameChange = (event) : void => this.props.setGroupName (event.target.value);
 
     public render(): JSX.Element {
-
-
         return (
             <div>
                 <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>

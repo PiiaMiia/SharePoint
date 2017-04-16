@@ -18,7 +18,8 @@ export default class Main extends React.Component<any, any> {
         super(props);
         this.state = {
             step: 0,
-            client: ''
+            client: '',
+            groupName: ''
         };
     }
 
@@ -94,12 +95,15 @@ export default class Main extends React.Component<any, any> {
     }
 
     private nextStep(): void {
-        if(this.state.step < 3) {
+        if(!this.validateStepSuccess()) {
             this.setState({
                 step: this.state.step + 1
             });
-            console.log(this.state.step);
         }
+    }
+
+    private validateStepSuccess(): boolean {
+        return (this.state.step == 1 && this.state.client.length === 0) || (this.state.step == 2 && this.state.groupName.length === 0);
     }
 
     private previousStep() : void {
@@ -107,7 +111,6 @@ export default class Main extends React.Component<any, any> {
             this.setState({
                 step: this.state.step - 1
             });
-        console.log(this.state.step);
         }
     }
 
@@ -116,7 +119,6 @@ export default class Main extends React.Component<any, any> {
             step: this.state.step,
             client: name
         });
-        console.log(this.state);
     }
 
     public setGroupName(name: string) : void {
@@ -124,7 +126,6 @@ export default class Main extends React.Component<any, any> {
             step: this.state.step,
             groupName: name
         });
-        console.log(this.state)
     }
 
     public getState(): any {

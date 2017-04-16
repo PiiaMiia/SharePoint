@@ -13,11 +13,7 @@ export default class Confirm extends React.Component<any, any> {
     private endpointUrl = "https://uptimegroups.azurewebsites.net/api/powershell-group?code=NGpWHLu1872M6QCGmx5824vDukFZXdKqijwxKnkO1LjLK9Iaydg1OA==";
 
     constructor(props) {
-        super(props)
-        this.state = {
-            client: '',
-            groupName: ''
-        }
+        super(props);
     }
 
     public render(): JSX.Element {

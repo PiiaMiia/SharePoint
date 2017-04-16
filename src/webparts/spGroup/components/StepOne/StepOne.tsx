@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Validation, {Validator} from 'rc-form-validation';
 import styles from '../SpGroup.module.scss';
 import SpGroup from '../SpGroup';
 import { ISpGroupProps } from '../ISpGroupProps';
@@ -58,15 +59,13 @@ export default class StepOne extends React.Component<any, any> {
     
         return (
             <div>
-                <div className={styles.helloWorld}>
-                    <div className={styles.container}>
-                        <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
-                            <span className="ms-font-xl ms-fontColor-white">Choose a client from list</span>
-                            <select onChange={this.handleClientChange}>
-                                {items}
-                            </select>
-                        </div>
+                <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
+                    <div>
+                        <span className="ms-font-xl ms-fontColor-white">Choose a client from list</span>
                     </div>
+                    <select onChange={this.handleClientChange}>
+                        {items}
+                    </select>
                 </div>
             </div>
         );

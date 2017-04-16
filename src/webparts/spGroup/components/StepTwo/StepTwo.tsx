@@ -24,13 +24,11 @@ export default class StepTwo extends React.Component<any, any> {
 
         return (
             <div>
-                <div className={styles.helloWorld}>
-                    <div className={styles.container}>
-                        <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
-                            <span className="ms-font-xl ms-fontColor-white">Name your group</span>
-                            <input id="groupNamee" type="text" placeholder="Group name" onChange={this.handleGroupNameChange}/>
-                        </div>
+                <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
+                    <div>
+                        <span className="ms-font-xl ms-fontColor-white">Name your group</span>
                     </div>
+                    <input id="groupNamee" type="text" placeholder="Group name" onChange={this.handleGroupNameChange}/>
                 </div>
             </div>
         );

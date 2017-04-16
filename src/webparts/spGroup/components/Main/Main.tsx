@@ -22,6 +22,77 @@ export default class Main extends React.Component<any, any> {
         };
     }
 
+    public render(): JSX.Element {
+        return (
+            <div>
+                <div className={styles.helloWorld}>  
+                    <div className={styles.container}>
+                        <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
+                            <span className="ms-font-xl ms-fontColor-white"><b>Create a group for your client!</b></span>
+                            {this.state.step == 1 &&
+                            <p>Step 1 -></p>
+                            }
+                            {this.state.step == 2 &&
+                            <p>Step 1 -> Step 2 -></p>
+                            }
+                            {this.state.step == 3 &&
+                            <p>Step 1 -> Step 2 -> Confirm</p>
+                            }
+
+                            {this.state.step < 1 &&
+                                <p className="ms-font-l ms-fontColor-white">
+                                    Here you can create a SharePoint Unified group using a set naming convention.
+                                    <br></br>
+                                    This helps you keep your work organized! Please click 'NEXT' to begin.
+                                </p>
+                            }
+                            {this.state.step > 0 && this.state.step < 3 &&
+                                <p>Group name: {escape(this.state.client)} - {escape(this.state.groupName)}</p>
+                            }
+                            {this.state.step == 1 &&
+                                <StepOne spHttpClient={this.props.spHttpClient}
+                                         siteUrl={this.props.siteUrl}
+                                         setClientName={this.setClientName.bind(this)}/>
+                            }
+                            {this.state.step == 2 &&
+                                <StepTwo spHttpClient={this.props.spHttpClient}
+                                         siteUrl={this.props.siteUrl}
+                                         setGroupName={this.setGroupName.bind(this)} />
+                            }
+                            {this.state.step == 3 &&
+                                <Confirm spHttpClient={this.props.spHttpClient}
+                                         httpClient={this.props.httpClient}
+                                         siteUrl={this.props.siteUrl}
+                                         createGroupEndpointUrl={this.props.createGroupEndpointUrl}
+                                         client={this.state.client}
+                                         groupName={this.state.groupName}
+                                         getState={this.getState.bind(this)}/>
+                            }
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md8 ms-u-lg8">
+                                {this.state.step > 0 &&
+                                    <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
+                                        <a href="#" className={`${styles.button}`} onClick={() => this.previousStep()}>
+                                            <span className={styles.label} >BACK</span>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                            <div className="ms-Grid-col ms-u-sm6 ms-u-md4 ms-u-lg4">
+                                {this.state.step < 3 &&
+                                    <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
+                                        <a href="#" className={`${styles.button}`} onClick={() => this.nextStep()}>
+                                            <span className={styles.label} >NEXT</span>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     private nextStep(): void {
         if(this.state.step < 3) {
             this.setState({
@@ -39,7 +110,6 @@ export default class Main extends React.Component<any, any> {
         console.log(this.state.step);
         }
     }
-
 
     public setClientName(name: string) : void {
         this.setState({
@@ -59,38 +129,5 @@ export default class Main extends React.Component<any, any> {
 
     public getState(): any {
         return this.state;
-    }
-
-    public render(): JSX.Element {
-        return (
-            <div>
-                <div className={styles.helloWorld}>
-                    <div className={styles.container}>
-                        <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>
-                            <span className="ms-font-xl ms-fontColor-white">Create a group for your client!</span>
-                            <p className="ms-font-l ms-fontColor-white">
-                                Here you can create a SharePoint Unified group using a set naming convention.
-                                <br></br>
-                                This helps you keep your work organized! Please click 'NEXT' to begin.
-                            </p>
-                            <p>Group name: {escape(this.state.client)} - {escape(this.state.groupName)}</p>
-                            <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
-                                <a href="#" className={`${styles.button}`} onClick={() => this.previousStep()}>
-                                    <span className={styles.label} >BACK</span>
-                                </a>
-                            </div>
-                            <div className='ms-Grid-col ms-u-lg10 ms-u-xl8 ms-u-xlPush2 ms-u-lgPush1'>
-                                <a href="#" className={`${styles.button}`} onClick={() => this.nextStep()}>
-                                    <span className={styles.label} >NEXT</span>
-                                </a>
-                            </div>
-                        </div>
-                        {this.state.step == 1 && < StepOne spHttpClient={this.props.spHttpClient} siteUrl={this.props.siteUrl} setClientName={this.setClientName.bind(this)}/ >}
-                        {this.state.step == 2 && < StepTwo spHttpClient={this.props.spHttpClient} siteUrl={this.props.siteUrl} setGroupName={this.setGroupName.bind(this)} / >}
-                        {this.state.step == 3 && < Confirm spHttpClient={this.props.spHttpClient} httpClient={this.props.httpClient} siteUrl={this.props.siteUrl} createGroupEndpointUrl={this.props.createGroupEndpointUrl} client={this.state.client} groupName={this.state.groupName} getState={this.getState.bind(this)}/ >}
-                    </div>
-                </div>
-            </div>
-        );
     }
 }

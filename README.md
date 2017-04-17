@@ -1,7 +1,5 @@
 ## sp-group
 
-This is where you include your WebPart documentation.
-
 ### Building the code
 
 ```bash
@@ -24,3 +22,18 @@ gulp test - TODO
 gulp serve - TODO
 gulp bundle - TODO
 gulp package-solution - TODO
+
+3-step wizard for creating SharePoint Unified groups.
+
+Start page:
+<img src="/resources/Main.jpeg" >
+
+Step one:
+<img src="/resources/StepOne.jpeg" >
+
+Step two:
+<img src="/resources/StepTwo.jpeg" >
+
+Confirm:
+<img src="/resources/Confirm.jpeg" >
+

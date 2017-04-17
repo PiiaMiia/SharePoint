@@ -10,6 +10,8 @@ import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import Main from '../Main/Main';
 import StepTwo from '../StepTwo/StepTwo';
 
+
+// FIRST STEP -- CHOOSING A CLIENT FROM SHAREPOINT LIST
 export default class StepOne extends React.Component<any, any> {
     private listItemEntityTypeName: string = undefined;
 
@@ -30,11 +32,13 @@ export default class StepOne extends React.Component<any, any> {
 
     public render(): JSX.Element {
         
-        const items: JSX.Element[] = this.state.listItems.map((item: IListItem, i: number): JSX.Element => {
-            return (
-                <option value={item.Title}>{item.Title}</option>
-            );
-        });
+        const items: JSX.Element[] = this.state.listItems.map(
+            (item: IListItem, i: number): JSX.Element => {
+                return (
+                    <option value={item.Title}>{item.Title}</option>
+                );
+            }   
+        );
         return (
             <div>
                 <div className={`ms-Grid-row ms-bgColor-themeSecondary ms-fontColor-white ${styles.row}`}>

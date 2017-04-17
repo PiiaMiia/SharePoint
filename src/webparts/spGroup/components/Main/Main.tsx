@@ -13,6 +13,7 @@ export interface IListItem {
   Title?: string;
 }
 
+// MAIN COMPONENT THAT ACTS AS A ROUTER AND INHERITS PROPS TO CHILD COMPONENTS
 export default class Main extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -39,7 +40,6 @@ export default class Main extends React.Component<any, any> {
                             {this.state.step == 3 &&
                             <p>Step 1 -> Step 2 -> Confirm</p>
                             }
-
                             {this.state.step < 1 &&
                                 <p className="ms-font-l ms-fontColor-white">
                                     Here you can create a SharePoint Unified group using a set naming convention.
@@ -94,18 +94,22 @@ export default class Main extends React.Component<any, any> {
         );
     }
 
+    // CHECKS IF FIELD IS FILLED
+    private validateStepSuccess(): boolean {
+        return (this.state.step == 1 && this.state.client.length === 0) || (this.state.step == 2 && this.state.groupName.length === 0);
+    }
+
+    // IF FIELD IS FILLED GOES TO NEXT STEP
     private nextStep(): void {
         if(!this.validateStepSuccess()) {
+    //      if(this.state.step < 3) {
             this.setState({
                 step: this.state.step + 1
             });
         }
     }
 
-    private validateStepSuccess(): boolean {
-        return (this.state.step == 1 && this.state.client.length === 0) || (this.state.step == 2 && this.state.groupName.length === 0);
-    }
-
+    // GOES TO PREVIOUS STEP
     private previousStep() : void {
         if (this.state.step > 0) {
             this.setState({
@@ -114,6 +118,12 @@ export default class Main extends React.Component<any, any> {
         }
     }
 
+    // GETS THE UPDATED STATE OF ANY PROP
+    public getState(): any {
+        return this.state;
+    }
+
+    // UPDATES THE CLIENT STATE
     public setClientName(name: string) : void {
         this.setState({
             step: this.state.step,
@@ -121,14 +131,11 @@ export default class Main extends React.Component<any, any> {
         });
     }
 
+    // UPDATES THE GROUPNAME STATE
     public setGroupName(name: string) : void {
         this.setState({
             step: this.state.step,
             groupName: name
         });
-    }
-
-    public getState(): any {
-        return this.state;
     }
 }

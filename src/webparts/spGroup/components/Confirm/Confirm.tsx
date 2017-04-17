@@ -23,7 +23,7 @@ export default class Confirm extends React.Component<any, any> {
                     <div className='ms-Grid-col ms-u-lg12 ms-u-xl12'>
                         <span className='ms-font-xl ms-fontColor-white'>You are about to create a group named</span>
                         <br></br>
-                        <span className='ms-font-xl ms-fontColor-white'><b><i>{escape(this.props.client)} - {escape(this.props.groupName)}</i></b></span>
+                        <span className='ms-font-xl ms-fontColor-white'><b><i>{escape(this.props.client)}-{escape(this.props.groupName)}</i></b></span>
                         <br></br>
                         <br></br>
                         <span className='ms-font-xl ms-fontColor-white'>Press "Create" to confirm.</span>

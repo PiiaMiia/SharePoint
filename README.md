@@ -26,14 +26,14 @@ gulp package-solution - TODO
 3-step wizard for creating SharePoint Unified groups.
 
 Start page:
-<img src="/https://github.com/PiiaMiia/SharePoint/blob/master/resources/Main.JPG" >
+<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/Main.JPG" width="250px">
 
 Step one:
-<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/StepOne.JPG" >
+<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/StepOne.JPG" width="250px">
 
 Step two:
-<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/StepTwo.JPG" >
+<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/StepTwo.JPG" width="250px">
 
 Confirm:
-<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/Confirm.JPG" >
+<img src="https://github.com/PiiaMiia/SharePoint/blob/master/resources/Confirm.JPG" width="250px">
 
